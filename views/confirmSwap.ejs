@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/item.css'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/swap.css'/>
+</head>
+<body>
+
+
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <% include partials/header.ejs %>
+            </div>
+        </div>
+        <div class="row content-justiify-center content-row">
+            <div class="col-3">
+                <% include partials/site-nav.ejs%>
+            </div>
+            <div class="col-9 mt-3">
+                <div class="row content-justify-left mt-5">
+                    <div class="col-10">
+
+                        <div class="alert alert-success" role="alert">
+                            <h4 class="alert-heading">Success!</h4>
+                            <p>Your request for swapping the book <strong><%= data.userItem.bookName %></strong> with
+                                <strong><%= data.otherItem.bookName %></strong> placed successfully. Please wait for
+                                    user to
+                                    respond!
+                           </p>
+                            <hr>
+                            <p class="mb-0">Go to <a class="a-link" href="/myItems">My Items</a> to withdraw the swap or continue
+                                browing <a
+                                        href="/catalogCategory" class="a-link">here</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <% include partials/footer.ejs%>
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+</html>

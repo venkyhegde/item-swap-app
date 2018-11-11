@@ -1,0 +1,27 @@
+.scrollable{
+    overflow-y: scroll !important;
+    height: 400px;
+}
+.card{
+    min-width: 282px !important;
+    width: 282px !important;
+}
+.card-body{
+    /*width: 100% !important;*/
+    padding: 10px !important;
+}
+.card-img-top{
+
+    width: 280px !important;
+    height:270px !important;
+}
+small{
+    font-size: 12px !important;
+}
+.view-more{
+    float: right !important;
+}
+.back-btn{
+    float: right !important;
+    margin-right: 3rem !important;
+}

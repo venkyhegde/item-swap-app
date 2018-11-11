@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title><%= data.title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/header.css'/>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</head>
+<body>
+<% include site.ejs %>
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light site-header">
+    <a class="navbar-brand" href="/">Niner Swap</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+
+            <li class="nav-item">
+                <a class="nav-link" href="/myItems"> <i class="fas fa-user-tag"></i>&nbsp;My Items</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/mySwaps"><i class="fas fa-exchange-alt"></i> &nbsp;My Swaps</a>
+            </li>
+
+            <% if(undefined === data.loginFlag || null === data.loginFlag || false === data.loginFlag || '' === data
+                    .loginFlag){ %>
+                <li class="nav-item dropdown dropright">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-sign-in-alt"></i>&nbsp;Login
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div class="login">
+                            <h4>Login here!</h4>
+                            <form name="loginForm" method="post" action="/">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" d="email"
+                                           name="email" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" name="password" id="password"
+                                           placeholder="Password">
+                                </div>
+                                <input type="hidden" name="action" value="login">
+                                <button type="submit" class="btn btn-sm btn-block btn-primary"><i class="fas
+                            fa-sign-in-alt"></i>&nbsp;Login
+                                </button>
+                                <button type="reset" class="btn btn-sm btn-block btn-warning"><i class="fas
+                            fa-redo-alt"></i>&nbsp;reset
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+
+                <!--signup-->
+
+                <li class="nav-item dropdown dropright">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-user-plus"></i>&nbsp;Sign up
+                    </a>
+                    <div class="dropdown-menu sign-up" aria-labelledby="navbarDropdown">
+                        <div class="card sign-up-card">
+                            <div class="card-header">
+                                <h4> Register here!</h4>
+                            </div>
+                            <form name="signupForm" action="/" method="post">
+                                <div class="card-body mt-2">
+                                    <div class="container-fluid">
+
+                                        <div class="row content-justify-center">
+                                            <div class="col-12">
+                                                <small class="form-text text-muted">Fields marked with * are
+                                                    required.
+                                                </small>
+                                                <div class="row mt-4">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="firstName"
+                                                                   name="firstName" placeholder="* Your First Name"
+                                                                   required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="lastName"
+                                                                   name="lastName" placeholder="* Your Last Name"
+                                                                   required>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="email" class="form-control" id="email"
+                                                                   name="email" placeholder="* Your email" required>
+                                                            <small class="form-text text-muted">Your email id will
+                                                                be used to login and communication.
+                                                            </small>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="password" class="form-control" id="passwrd"
+                                                                   name="passwrd" placeholder="* Password" required>
+                                                            <small class="form-text text-muted">Password must be of
+                                                                length 6
+                                                                .
+                                                            </small>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="address1"
+                                                                   name="address1" placeholder="* Address 1" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="address2"
+                                                                   name="address2" placeholder="Address 2">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="city"
+                                                                   name="city" placeholder="City">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="state"
+                                                                   name="state" placeholder="State">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="postCode"
+                                                                   name="postCode" placeholder="Post code"
+                                                                   maxlength="6">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <input type="text" class="form-control" id="country"
+                                                                   name="country" placeholder="Country">
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 text-right">
+                                            <div class="col-12">
+                                                <input type="hidden" name="action" value="signup">
+                                                <button type="reset" class="btn btn-warning"><i
+                                                            class="fas fa-redo-alt"></i> &nbsp;
+                                                    Reset
+                                                </button>
+                                                <button type="submit" class="btn btn-primary"><i
+                                                            class="fas fa-user-plus"></i> &nbsp;Sign
+                                                    up
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </li>
+            <% } else { %>
+                <li class="nav-item">
+                    <form name="logoutForm" action="/" method="post">
+                        <input type="hidden" name="action" value="logout">
+                        <a class="nav-link logout-btn" onclick="logoutForm.submit()" data-toggle="tooltip"
+                           data-placement="right" title="Logout"><i class="fas fa-sign-out-alt"></i>
+                            &nbsp;Log
+                            Out</a>
+                    </form>
+                </li>
+            <% } %>
+
+        </ul>
+        <% if(undefined === data.loginFlag || null === data.loginFlag || false === data.loginFlag || '' === data
+                .loginFlag){ %>
+
+        <% }else{ %>
+            <form class="form-inline mr-5">
+                <button class="btn btn-sm btn-success loggedin-user" disabled><i class="fas fa-user-circle"></i> &nbsp;
+                    <%= data.docs.firstName %></button>
+            </form>
+        <% } %>
+    </div>
+</nav>
+
+
+</body>
+
+</html>

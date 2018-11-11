@@ -1,0 +1,17 @@
+.category-card{
+    padding: 0px !important;
+}
+.category-text{
+    font-size: large;
+
+}
+.category-text:hover{
+    font-weight: bold;
+}
+.card-body {
+    flex: 1 1 auto;
+    padding: 0rem !important;
+}
+.list-group{
+    padding: 0px!important;
+}

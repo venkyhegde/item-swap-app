@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/item.css'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/swap.css'/>
+</head>
+<body>
+
+
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <% include partials/header.ejs %>
+            </div>
+        </div>
+        <div class="row content-justiify-center content-row">
+            <div class="col-3">
+                <% include partials/site-nav.ejs%>
+            </div>
+            <div class="col-9 mt-3">
+                <div class="row content-justify-left">
+                    <div class="col">
+                        <h4><% console.log("From view - "+data.book.bookName);%>
+
+                            Swap '<%= data.book.bookName%>'</h4>
+                    </div>
+                    <div class="col content-justify-right">
+                        <a href="/catalogCategory/<%=data.book.categories.trim()%>/<%=data.book.bookId.trim()%>" class="btn btn-sm
+                        btn-warning
+                        back-btn"><i class="fas
+                        fa-chevron-circle-left"></i> <%= data.book.bookName.charAt(0).toLocaleUpperCase()
+                            + data.book.bookName.slice(1)
+                            %></a>
+                    </div>
+                </div>
+                <div class="row content-justify-center mt-3 head">
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="book-cover-image" src="<%=data.book.imageUrl%>">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-8 content-justify-left">
+                        <table class="mt-3">
+                            <tr>
+                                <th>Book Name:</th>
+                                <td><%= data.book.bookName%></td>
+                                <th>Author:</th>
+                                <td><%= data.book.author%></td>
+                            </tr>
+
+                            <tr>
+                                <th>Status:</th>
+                                <td><%= data.book.status%></td>
+                                <th>User Rating:</th>
+                                <td><%= data.book.userRating%></td>
+                            </tr>
+
+                            <tr>
+                                <th>Categories:</th>
+                                <td><%= data.book.categories%></td>
+                                <th>Book Id:</th>
+                                <td><%= data.book.bookId%></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row content-justify-left mt-m2">
+                    <h6>Select a book to Swap</h6>
+                    <div class="col-11">
+                        <% if(data.items.length > 0){ %>
+                        <form name="confirmSwapForm" action="/swapIt" method="post">
+                        <div class="row">
+                            <div class="col-8">
+                                <table class="table table-hover border-bottom">
+                                    <thead>
+                                    <tr>
+                                        <th class="w10"></th>
+                                        <th scope="col">Book Name</th>
+                                        <th scope="col">Book ID</th>
+
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row scrollable">
+                            <div class="col-12">
+                                <table class="table table-hover">
+                                    <tbody>
+                                    <% for(var i=0; i<data.items.length;i++){%>
+                                    <tr>
+                                        <td scope="row" class="scroll-table-td">
+                                            <input type="radio" name="itemCodeOwn" value="<%= data.items[i]._id%>">
+                                        </td>
+                                        <td class="scroll-table-td">
+                                            <div class="row">
+                                                <div class="col-3">
+                                                    <img src="<%= data.items[i].imageUrl %>"
+                                                         width="40px;">
+                                                </div>
+                                                <div class="col-9">
+                                                    <%=
+                                                        data.items[i].bookName %>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                        </td>
+                                        <td class="scroll-table-td"><%= data.items[i]._id %></td>
+
+                                    </tr>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                            <input type="hidden" name="action" value="swapItConfirm">
+                            <input type="hidden" name="itemCodeWant" value="<%= data.book.bookId%>">
+                            <input type="hidden" name="itemUserId" value="<%= data.book.itemUserId %>">
+                            <button type="submit" class="btn btn-md btn-primary align-right"><i class="fas
+                            fa-check-circle"></i> &nbsp;Confirm</button>
+                        </form>
+                       <%} else {%>
+                        <h5>Sorry! you don't have available books to swap.</h5>
+                        <%}%>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <% include partials/footer.ejs%>
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+</html>

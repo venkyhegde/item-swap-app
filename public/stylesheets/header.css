@@ -1,0 +1,6 @@
+.navbar form .bmd-form-group{
+    width: 100% !important;
+}
+.logout-btn{
+    cursor: pointer;
+}

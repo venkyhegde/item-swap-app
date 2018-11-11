@@ -1,0 +1,41 @@
+table{
+    margin-bottom: 0px !important;
+}
+td{
+    text-align: left !important;
+}
+th{
+    text-align: left !important;
+}
+.scroll-table-td{
+    width:46px !important;
+}
+.mt-m2{
+    margin-top: -2rem !important;
+}
+.align-right{
+    float: right !important;
+    margin-right: 2rem !important;
+}
+
+.small-table{
+    width:100% !important;
+    border: 0px solid #000000 !important;
+    padding: 1px !important;
+
+}
+.w10{
+    width: 10rem !important;
+}
+.table thead th{
+    border-color: white!important;
+}
+
+.a-link{
+    color:#258ffc;
+
+}
+.a-link:hover {
+    color:#258ffc;
+    text-decoration: underline;
+}

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/item.css'/>
+</head>
+<body>
+
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <% include partials/header.ejs %>
+            </div>
+        </div>
+        <div class="row content-justiify-center content-row">
+            <div class="col-3">
+                <% include partials/site-nav.ejs %>
+            </div>
+            <div class="col-9 mt-3">
+                <div class="row content-justify-left">
+                    <div class="col">
+                        <h4>
+                            <% console.log("From view - " + data.items.length); %>
+
+                            <%= data.items[0].bookName %></h4>
+                    </div>
+                    <div class="col content-justify-right">
+                        <a href="/catalogCategory/<%= data.items[0].catalogCategory.trim() %>" class="btn btn-sm
+                        btn-warning
+                        back-btn"><i class="fas
+                        fa-chevron-circle-left"></i> <%= data.items[0].catalogCategory.charAt(0).toLocaleUpperCase()
+                            + data.items[0].catalogCategory.slice(1)
+                            %></a>
+                    </div>
+                </div>
+                <div class="row content-justify-center mt-3 head">
+                    <div class="col-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <img class="book-cover-image" src="<%= data.items[0].imageUrl %>">
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-8 content-justify-left">
+                        <table class="mt-3">
+                            <tr>
+                                <td><strong>Book Name:</strong></td>
+                                <td colspan="3"><%= data.items[0].bookName %></td>
+                                <td><strong>Author:</strong></td>
+                                <td><%= data.items[0].author %></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Categories:</strong></td>
+                                <td><%= data.items[0].catalogCategory %></td>
+                                <td><strong>Status:</strong></td>
+                                <td><%= data.items[0].status %></td>
+                                <td><strong>User Rating:</strong></td>
+                                <td><%= data.items[0].rating %></td>
+                            </tr>
+
+                            <tr>
+                                <td><strong>Overall Rating:</strong></td>
+                                <td><%= data.items[0].genRating %></td>
+                                <td><strong>Book Id:</strong></td>
+                                <td><%= data.items[0]._id %></td>
+                            </tr>
+                            <% console.log("From view - " + data.loginFlag);
+                            if(data.loginFlag){
+                            if(data.items[0].status === 'available' && data.theUser._id !== data.items[0].userId){
+                            %>
+                                <tr>
+                                    <th>
+                                        <form name="swapItForm" action="/swapIt" method="post">
+                                            <input type="hidden" name="action" value="swapit">
+                                            <input type="hidden" name="bookId" value="<%= data.items[0]._id %>">
+                                            <input type="hidden" name="bookName" value="<%= data.items[0].bookName %>">
+                                            <input type="hidden" name="author" value="<%= data.items[0].author %>">
+                                            <input type="hidden" name="status" value="<%= data.items[0].status %>">
+                                            <input type="hidden" name="userRating" value="<%= data.items[0].rating %>">
+                                            <input type="hidden" name="categories"
+                                                   value="<%= data.items[0].catalogCategory %>">
+                                            <input type="hidden" name="imageUrl" value="<%= data.items[0].imageUrl %>">
+                                            <input type="hidden" name="itemUserId" value="<%= data.items[0].userId %>">
+                                            <button class="btn btn-sm btn-primary" type="submit"><i class="fas
+                                    fa-exchange-alt"></i>&nbsp; Swap It</a> </button>
+                                        </form>
+                                </tr>
+                            <% }
+                            if(data.items[0].status === 'pending' && data.theUser._id !== data.items[0].userId){ %>
+
+                                <tr>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">
+                                        <div class="alert alert-warning" role="alert">
+                                            <small class="form-text
+                                    text-muted"><i class="fa fa-spinner fa-spin"></i>&nbsp;This book has been requested
+                                                for swap!
+                                            </small>
+                                        </div>
+                                    </th>
+                                </tr>
+
+                            <% } if( data.items[0].status === 'swapped' && data.theUser._id !== data.items[0].userId){ %>
+
+
+
+
+                                <tr>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">
+                                        <div class="alert alert-success" role="alert">
+                                            <small class="form-text
+                                    text-muted"><i class="fas fa-retweet"></i>&nbsp; Already swapped!
+                                            </small>
+                                        </div>
+                                    </th>
+                                </tr>
+                            <% }
+                            %>
+                            <tr>
+                                <th>
+                                  <!--Rating-->
+
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-warning dropdown-toggle" type="button"
+                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                            <i class="far fa-star"></i>&nbsp; Rate It
+                                        </button>
+                                        <div class="dropdown-menu dropdown-menu1" aria-labelledby="dropdownMenuButton">
+                                           <form class="mt-1" name="ratefromitem" method="post"
+                                                 action="/catalogCategory/<%= data
+                                                   .items[0].catalogCategory %>/<%= data.items[0]._id %>">
+                                               <input class="rate-star" type="checkbox" title="rate" name="one"
+                                                      value="1">
+                                               <input class="rate-star" type="checkbox" title="rate" name="two"
+                                                      value="2">
+                                               <input class="rate-star" type="checkbox" title="rate" name="three"
+                                                      value="3">
+                                               <input class="rate-star" type="checkbox" title="rate" name="four"
+                                                      value="4">
+                                               <input class="rate-star" type="checkbox" title="rate" name="five"
+                                                      value="5">
+                                               <input type="hidden" name="action" value="ratefromitem">
+                                               <input type="hidden" name="currentGenRating" value="<%= data.items[0].genRating %>">
+                                               <button type="submit" class="btn btn-esm
+                                               btn-block btn-primary mt-3 fa-input"><i class="fas
+                                               fa-level-down-alt"></i> &nbsp;Submit</button>
+                                           </form>
+                                        </div>
+                                    </div>
+
+                                </th>
+                            </tr>
+                            <% } else{ %>
+                                <tr>
+                                    <th></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="3">
+                                        <div class="alert alert-info" role="alert">
+                                            <small class="form-text text-muted">Please login to Rate or Swap this
+                                                book!
+                                            </small>
+                                        </div>
+                                    </th>
+                                </tr>
+                            <% } %>
+                        </table>
+                    </div>
+                </div>
+                <div class="row content-justify-left">
+                    <h5>Description:</h5>
+                    <div class="col-11 scrollable">
+                        <article><%= data.items[0].description %></article>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <% include partials/footer.ejs %>
+    </div>
+
+
+</div>
+
+
+</body>
+</html>

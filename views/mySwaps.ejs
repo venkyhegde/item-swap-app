@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/myitems.css'/>
+    <link rel="stylesheet" type="text/css" media="screen" href='/stylesheets/myswaps.css'/>
+</head>
+<body>
+
+
+
+<div class="wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <% include partials/header.ejs %>
+            </div>
+        </div>
+        <div class="row content-justiify-center content-row">
+            <div class="col-3">
+                <% include partials/site-nav.ejs%>
+            </div>
+            <div class="col-9 mt-4">
+
+                <%if(undefined === data.loginFlag || null === data.loginFlag || false === data.loginFlag ||'' === data
+                        .loginFlag){ %>
+                    <h3> Please login...</h3>
+                <%}else{%>
+                <h3> <%=data.docs.firstName%>'s, Swap offers!<% console.log("From view - "+JSON.stringify
+                    (data));
+                    %></h3>
+
+                <div class="row mt-2">
+                    <div class="row">
+                        <div class="col">
+                            <h5>My requests...</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-11">
+                    <!--User requests-->
+                    <% if(undefined === data.userRequestedSwaps || data.userRequestedSwaps.length < 1){ %>
+                         <!--nothing to show-->
+                        <h6>You have not made any swap requests</h6>
+                   <% } else { %>
+                        <!--show all-->
+                    <div class="row mt-2 justify-content-left">
+
+                        <div class="col-9">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Book</th>
+                                    <th scope="col">Swap Offer</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                        <div class="row scrollable-ms">
+                            <div class="col-10">
+                                <table class="table">
+                                    <tbody class="align-left tbody">
+                                    <% for(var i = 0; i<data.userRequestedSwaps.length; i++){ %>
+                                        <tr>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <img src="<%= data.userRequestedSwaps[i].userItem[0].imageUrl
+                                                        %>" width="40px;">
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <a class="a-link" href="/catalogCategory/<%= data
+                                                                .userRequestedSwaps[i]
+                                                                .userItem[0].catalogCategory %>/<%= data
+                                                                .userRequestedSwaps[i].userItem[0]._id%>"><%= data
+                                                                    .userRequestedSwaps[i].userItem[0].bookName %>
+
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <div class="col-2">
+                                                        <img src="<%= data.userRequestedSwaps[i].otherItem[0].imageUrl
+                                                        %>" width="40px;">
+                                                    </div>
+                                                    <div class="col-10">
+                                                        <a class="a-link" href="/catalogCategory/<%= data
+                                                                .userRequestedSwaps[i]
+                                                                .otherItem[0].catalogCategory %>/<%= data
+                                                                .userRequestedSwaps[i].otherItem[0]._id%>"> <%= data
+                                                                    .userRequestedSwaps[i].otherItem[0].bookName %>
+
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td width="20px">
+                                                <form name="withdrawform" action="/mySwaps" method="post">
+                                                    <input type="hidden" name="action" value="withdrawform">
+                                                    <input type="hidden" name="offerId" value="<%= data
+                                                            .userRequestedSwaps[i].offerId %>">
+                                                    <input type="hidden" name="userBookId" value="<%= data
+                                                            .userRequestedSwaps[i].userItem[0]._id %>">
+                                                    <input type="hidden" name="otherBookId" value="<%= data
+                                                            .userRequestedSwaps[i].otherItem[0]._id %>">
+                                                    <button type="submit" class="btn btn-sm btn-warning"><i class="fas
+                                                fa-minus-square"></i> &nbsp; withdraw</button>
+                                                </form>
+
+                                            </td>
+                                        </tr>
+                                    <%}%>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                   <% }%>
+
+                    <!--Other requests-->
+                    </div>
+                </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Requests for your books..</h5>
+                                </div>
+                            </div>
+                            <% if( data.othersRequestedSwaps === undefined || data.othersRequestedSwaps.length < 1){ %>
+                                <h6>No requests!</h6>
+                           <% } else{%>
+                            <div class="row scrollable">
+                                        <div class="col-12">
+                                            <table>
+                                                <tr>
+                                                    <th>
+                                                        Book
+                                                    </th>
+                                                    <th>
+                                                        Offer
+                                                    </th>
+                                                    <th>
+
+                                                    </th>
+                                                </tr>
+                                                <% for(let i=0; i< data.othersRequestedSwaps.length;i++){%>
+                                                       <tr>
+                                                           <td>
+                                                            <img src="<%= data.othersRequestedSwaps[i].userItem[0]
+                                                                    .imageUrl %>" width="40px;"><a class="a-link"
+                                                                       href="/catalogCategory/<%= data.othersRequestedSwaps[i].userItem[0]
+                                                                               .catalogCategory %>/<%= data
+                                                                               .othersRequestedSwaps[i].userItem[0]
+                                                                               ._id %>"><%= data
+                                                                           .othersRequestedSwaps[i].userItem[0]
+                                                                           .bookName %></a>
+                                                           </td>
+                                                           <td>
+                                                               <img src="<%= data.othersRequestedSwaps[i].otherItem[0]
+                                                                       .imageUrl %>" width="40px;"><a class="a-link"
+                                                                       href="/catalogCategory/<%= data.othersRequestedSwaps[i].otherItem[0]
+                                                                               .catalogCategory %>/<%= data
+                                                                               .othersRequestedSwaps[i].otherItem[0]
+                                                                               ._id %>"><%= data
+                                                                           .othersRequestedSwaps[i].otherItem[0]
+                                                                           .bookName %></a>
+                                                           </td>
+                                                           <td>
+                                                               <form name="acceptform" action="/mySwaps"
+                                                                     method="post" class="inline-form">
+                                                                   <input type="hidden" name="action"
+                                                                          value="acceptform">
+                                                                   <input type="hidden" name="offerId" value="<%= data
+                                                                           .othersRequestedSwaps[i].offerId %>">
+                                                                   <input type="hidden" name="userBookId" value="<%= data
+                                                                           .othersRequestedSwaps[i].userItem[0]._id %>">
+                                                                   <input type="hidden" name="otherBookId" value="<%= data
+                                                                           .othersRequestedSwaps[i].otherItem[0]._id %>">
+                                                                   <button type="submit" class="btn btn-sm
+                                                                btn-primary"><i class="fas fa-check-circle"></i> &nbsp;
+                                                                       Accept</button>
+                                                               </form>
+                                                               <form name="rejectform" action="/mySwaps"
+                                                                     method="post" class="inline-form">
+                                                                   <input type="hidden" name="action"
+                                                                          value="rejectform">
+                                                                   <input type="hidden" name="offerId" value="<%= data
+                                                                           .othersRequestedSwaps[i].offerId %>">
+                                                                   <input type="hidden" name="userBookId" value="<%= data
+                                                                           .othersRequestedSwaps[i].userItem[0]._id %>">
+                                                                   <input type="hidden" name="otherBookId" value="<%= data
+                                                                           .othersRequestedSwaps[i].otherItem[0]._id %>">
+                                                                   <button type="submit" class="btn btn-sm
+                                                                btn-warning"><i class="fas fa-times-circle"></i>
+                                                                       &nbsp; Reject</button>
+                                                               </form>
+
+                                                           </td>
+                                                       </tr>
+                                               <% }%>
+                                            </table>
+                                        </div>
+                                        </div>
+                           <% }%>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                <% }%>
+
+
+
+
+            </div>
+        </div>
+        <% include partials/footer.ejs%>
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+</html>

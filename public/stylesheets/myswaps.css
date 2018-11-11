@@ -1,0 +1,16 @@
+.scrollable-ms{
+    overflow-y: scroll !important;
+    height: 100px;
+}
+table{
+    margin-bottom: 0px !important;
+    width: 100% !important;
+}
+td{
+    border-top: 0px solid #ffffff !important;
+}
+.tbody{
+    float: left;
+    margin-left: 0px !important;
+    width: 100% !important;
+}
